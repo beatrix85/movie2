@@ -5,6 +5,9 @@ namespace App\Repository;
 use App\Entity\Casting;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\Repository\MovieRepository;
+use App\Entity\Movie;
+use App\Entity\Person;
 
 /**
  * @method Casting|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +50,21 @@ class CastingRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function add($title, $names) {
+        $entityManager = $this->getEntityManager();
+        $MovieRepository = $entityManager->getRepository(Movie::class);
+        $PersonRepository = $entityManager->getRepository(Person::class);
+
+        $movie = $MovieRepository->add($title);
+
+        foreach ($names as $name) {
+            $tmp =  $PersonRepository->add($name);
+            $casting = new Casting();
+            $casting->setPerson($tmp);
+            $casting->setMovie($movie);
+            $entityManager->persist($casting);
+        }
+        $entityManager->flush();
+    }
 }

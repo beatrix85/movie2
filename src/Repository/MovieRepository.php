@@ -47,4 +47,17 @@ class MovieRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function add($title) {
+        $entityManager = $this->getEntityManager();
+
+        $tmp = new Movie();
+        $tmp->setTitle($title);
+        $tmp->setCreatedAt(new \DateTime());
+        $tmp->setUpdatedAt(new \DateTime());
+
+        $entityManager->persist($tmp);
+        $entityManager->flush();
+
+        return $tmp;
+    }
 }

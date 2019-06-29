@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MovieController!{% endblock %}
+
+{% block body %}
+<form action="{{ path("add_movie") }}" method="POST">
+    <label for="title">Titre du film</label>
+    <input type="text" name="title">
+    
+    <button type="submit">Enregistrer</button>
+</form>
+
+<form action="{{ path("add_actor") }}" method="POST">
+        <label for="name">Nom de l'acteur</label>
+        <input type="text" name="name">
+        
+        <button type="submit">Enregistrer</button>
+    </form>
+
+
+{% endblock %}

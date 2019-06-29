@@ -47,4 +47,18 @@ class PersonRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function add($name) {
+        $entityManager = $this->getEntityManager();
+
+        $tmp = new Person();
+        $tmp->setName($name);
+        $tmp->setCreatedAt(new \DateTime());
+        $tmp->setUpdatedAt(new \DateTime());
+
+        $entityManager->persist($tmp);
+        $entityManager->flush();
+
+        return $tmp;
+    }
 }
